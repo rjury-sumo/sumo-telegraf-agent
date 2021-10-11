@@ -13,4 +13,4 @@ Typically with synthetic checks we would want to add additional dimensions such 
 - env: sends a tag called environment to sumo
 - service: the service name for grouping endpoints
 - location: the location the dockerised test is run from. Useful if you want to test from multiple source locations.
-- Interval and flush_interval can be supplied as vars defaulted to 60s.
+- interval and flush_interval: default to 60s.
