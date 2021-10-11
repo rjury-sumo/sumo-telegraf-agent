@@ -1,9 +1,9 @@
 # env vars
-Runtime container variables allow you to run potentially  container instances with custom config.
+Runtime container variables allow you to run container instances with custom config set in the orchestration environment.
 Default values for env vars are defined in entrypoint.sh
 
-## Env vars mandatory 
-- SUMO_URL 
+## env vars mandatory 
+- SUMO_URL - the http endpoint address to post metric data to.
 
 ## env vars optional
 This container is designed to send some extra contextual information with the default metric dimensions.

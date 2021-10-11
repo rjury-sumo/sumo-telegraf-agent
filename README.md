@@ -21,10 +21,12 @@ Plugin conf files can be found in ./conf. The files:
 Container image ready to use at:
 https://hub.docker.com/repository/docker/rickjury/sumo-telegraf-agent/general
 
-for example:
-
+## http endpoint setup in Sumo Logic
+see: https://help.sumologic.com/03Send-Data/Collect-from-Other-Data-Sources/Collect_Metrics_Using_Telegraf/05_Configure_Telegraf_Output_Plugin_for_Sumo_Logic
 
 ## setup and run
+Provide the SUMO_URL from above as an environment variable to the container.
+
 ```
 docker run -it -e SUMO_URL="$SUMO_URL"  -e env=prod -e urls='http://sumologic.com,https://support.sumologic.com' -e location=living_room rickjury/sumo-telegraf-agent telegraf --config http_response.conf
 ```
