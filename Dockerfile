@@ -39,5 +39,18 @@ COPY entrypoint.sh /entrypoint.sh
 # copy over any templates for telegraf config
 COPY ./conf/* /
 
+# config validation
+# we want the container build to fail if there is a syntax error in the builtin configs
+ENV SUMO_URL="http://your_url"
+ENV environment="demo"
+ENV ip=1.2.3.4
+ENV location=docker_build
+ENV service=docker_service
+ENV urls=localhost
+RUN telegraf --config ping.conf --test 
+ENV urls=http://localhost
+RUN telegraf --config http_response.conf --test 
+RUN telegraf --config statsd.conf --test 
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["telegraf"]
