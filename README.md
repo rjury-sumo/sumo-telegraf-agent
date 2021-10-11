@@ -2,6 +2,10 @@
 A containerised telegraf agent with built in sumologic metrics output.
 Source for: rickjury/sumo-telegraf-agent on docker hub.
 
+```
+docker pull rickjury/sumo-telegraf-agent:latest
+```
+
 Project provides easy to launch synthetic & other monitors that send SumoLogic output plugin metrics using the telegraf input plugins for:
 - [ping](docs/ping.md)
 - [http_response](docs/http_response.md)
