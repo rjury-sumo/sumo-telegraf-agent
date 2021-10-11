@@ -42,7 +42,7 @@ COPY ./conf/* /
 # config validation
 # we want the container build to fail if there is a syntax error in the builtin configs
 ENV SUMO_URL="http://your_url"
-ENV environment="demo"
+ENV env="demo"
 ENV ip=1.2.3.4
 ENV location=docker_build
 ENV service=docker_service
