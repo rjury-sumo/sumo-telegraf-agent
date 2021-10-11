@@ -11,6 +11,8 @@ Project provides easy to launch synthetic & other monitors that send SumoLogic o
 - [http_response](docs/http_response.md)
 - [statsd](docs/statsd.md)
 
+See docs pages above for plugin configuration and example searches and links to a dashboard app.
+
 Plugin conf files can be found in ./conf. The files:
 - use env vars to make launch configurable through docker orchestration environment
 - Include global tags for metadata in sumo such as sourcecategory
