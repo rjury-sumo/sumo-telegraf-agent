@@ -2,15 +2,14 @@
 Runtime container variables allow you to run container instances with custom config set in the orchestration environment.
 Default values for env vars are defined in entrypoint.sh
 
-## env vars mandatory 
-- SUMO_URL - the http endpoint address to post metric data to.
 
-## env vars optional
-This container is designed to send some extra contextual information with the default metric dimensions.
+| variable       | mandatory | notes                                                                                                                                                                                                                          |   |
+|----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+| SUMO_URL       | yes       | The https endpoint to send metric data to at Sumo Logic.  You must provide a valid SUMO_URL environment variable to execute the container. This should be the HTTPS metrics endpoint source you have configured in Sumo Logic. |   |
+| env            | no        | The environment that the tests apply to. Sets the environment tag on the input plugin.                                                                                                                                         |   |
+| location       | no        | The location that the test runs. Sets a tag on the input plugin.                                                                                                                                                               |   |
+| service        | no        | The service that the check relates to. Sets a tag on the input plugin.                                                                                                                                                         |   |
+| urls           | yes       | One or more urls to check as either a single address or a csv list of addresses.                                                                                                                                               |   |
+| interval       | no        | Check interval defaults to 60s                                                                                                                                                                                                 |   |
+| flush_interval | no        | Flush interval for output plugin defaults to 60s. More frequent intervals will increase DPM.    
 
-Typically with synthetic checks we would want to add additional dimensions such as:
-- X_SUMO_FIELDS: any arbitrary commas separated list of fields.
-- env: sends a tag called environment to sumo
-- service: the service name for grouping endpoints
-- location: the location the dockerised test is run from. Useful if you want to test from multiple source locations.
-- interval and flush_interval: default to 60s.

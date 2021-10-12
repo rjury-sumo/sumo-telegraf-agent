@@ -1,43 +1,55 @@
 # sumo-telegraf-agent
-A containerised telegraf agent with built in sumologic metrics output.
-Source for: rickjury/sumo-telegraf-agent on docker hub.
+The sumo-telegraf-container is a containerised telegraf agent with built in sumologic metrics output plugin to forward metrics to a Sumo Logic HTTPS endpoint. 
+
+It provides an easy to deploy and configure collection for use cases such as local Synthetic HTTP checks which can be deployed in minutes.
+
+Container image ready to use at:
+https://hub.docker.com/repository/docker/rickjury/sumo-telegraf-agent/general
 
 ```
 docker pull rickjury/sumo-telegraf-agent:latest
 ```
 
-Project provides easy to launch synthetic & other monitors that send SumoLogic output plugin metrics using the telegraf input plugins for:
-- [ping](docs/ping.md)
-- [http_response](docs/http_response.md)
-- [statsd](docs/statsd.md)
+For implementation options see the docs pages below:
+- [ping](docs/ping.md) - synthetic ping check
+- [http_response](docs/http_response.md) - synthetic http check
+- [statsd](docs/statsd.md) - recieve and forward statsd or dogstatsd metrics to Sumo Logic.
 
-See docs pages above for plugin configuration and example searches and links to a dashboard app.
-
-Plugin conf files can be found in ./conf. The files:
+By default the containr runs using the conf files ./conf. The files:
 - use env vars to make launch configurable through docker orchestration environment
 - Include global tags for metadata in sumo such as sourcecategory
 - Provide enterprise ready tags for dimensions such as: env, location, service.
 - Are filtered with fieldpass to provide sensible minimised DPM
 
-### docker hub
-Container image ready to use at:
-https://hub.docker.com/repository/docker/rickjury/sumo-telegraf-agent/general
-
-## http endpoint setup in Sumo Logic
-see: https://help.sumologic.com/03Send-Data/Collect-from-Other-Data-Sources/Collect_Metrics_Using_Telegraf/05_Configure_Telegraf_Output_Plugin_for_Sumo_Logic
-
-## setup and run
-Provide the SUMO_URL from above as an environment variable to the container.
-
+## global tags
+Extra global tags and fields are added in each conf file to enrich metric data posted to Sumo Logic as below:
 ```
-docker run -it -e SUMO_URL="$SUMO_URL"  -e env=prod -e urls='http://sumologic.com,https://support.sumologic.com' -e location=living_room rickjury/sumo-telegraf-agent telegraf --config http_response.conf
+_sourcecategory=metrics/telegraf
+_sourcehost=<container hostname>
+ip=<container ip address>
+component=<component name>
 ```
-Make sure when you execute the container you have a valid conf file: you can use one of the conf's in the container or provide your own custom one.
 
-The built in files have various environment [variables](./docs/env_vars.md), only a few of which are mandatory - such as SUMO_URL. Defaults are set in entrypoint.sh.
-Some plugins require a port such as statsd most are outbound only.
+If you are looking to customize the container refer to the [output_plugin](./docs/output_plugin.md) doc.
 
+## Configure Hosted Collector and HTTP Source
+In order to send data to Sumo Logic with Telegraf’s Sumo Logic output plugin you need to create a Hosted Collector with an HTTP Source to ingest the data. For instructions see:
+- [Configure a Hosted Collector](https://help.sumologic.com/03Send-Data/Hosted-Collectors/Configure-a-Hosted-Collector)
+- [HTTP Logs and Metrics Source](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source)
+
+
+These topics have detailed overview of 
+- [Sumo Logic's metric output plugin for telegraf](https://help.sumologic.com/03Send-Data/Collect-from-Other-Data-Sources/Collect_Metrics_Using_Telegraf/05_Configure_Telegraf_Output_Plugin_for_Sumo_Logic)
+- [Sumo Logic Telegraf Collection Architecture](https://help.sumologic.com/03Send-Data/Collect-from-Other-Data-Sources/Collect_Metrics_Using_Telegraf) 
+
+## How To Execute the Container
 For examples to orchestrate container see: docker/orchestration
+
+Executing a https check with tags set for environment, location and service.
+
+```
+docker run -it -e SUMO_URL="$SUMO_URL"  -e env=prod -e urls='http://sumologic.com,https://support.sumologic.com' -e location=living_room -e service=myservice rickjury/sumo-telegraf-agent telegraf --config http_response.conf
+```
 
 Docker compose example of a http synthetic check vs two web urls.
 ```
@@ -55,13 +67,15 @@ services:
       service: demo_dc
       urls: http://sumologic.com,https://help.sumologic.com
 ```
+## Environment Variables
+Set the mandatory envrionment variable SUMO_URL with the https endpoint address for your HTTPS endpoint from above.
 
-## global tags
-Posts to sumo with following global tags on all metrics that appear in sumo as metric dimensions:
-```
-_sourcecategory=metrics/telegraf
-_sourcehost=<container hostname>
-ip=<container ip address>
-component=<component name>
-```
+There are other environment variables that can be set to customise the tag dimensions sent.
+
+Refer to this doc for details on the environment [variables](./docs/env_vars.md) that can be set for the container. Defaults are set in entrypoint.sh.
+
+### ports
+Some plugins require a port such as statsd most are outbound only.
+
+
 

@@ -1,11 +1,15 @@
 # http_response 
+A common use case for observability or monitoring is to execute regular synthetic HTTPS checks vs key applications to ensure an application or service is running. It can be useful to be able to run these checks from one or more locations within your cloud or datacenter environments.
+
+The open source telegraf http_response input plugin provides an easy to configure solution to setup synthetic HTTP checks.
+
 ```
 component=http_response
 ```
 
 Containerised synthetic http check as per: https://github.com/influxdata/telegraf/tree/master/plugins/inputs/http_response
 
-For a simple example of running this container to poll several sites every minute via kubernetes see: docker/orchestration/docker-k8s/pod.yaml
+For a simple example of running this container to poll several sites every minute via kubernetes see: orchestration/docker-k8s/pod.yaml
 
 ## env vars
 See: [env_vars.md](env_vars.md)
