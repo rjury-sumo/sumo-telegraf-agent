@@ -47,9 +47,9 @@ component=http_response metric=http_response_result_code result=success
 see: https://github.com/rjury-sumo/sumo-telegraf-examples/tree/main/complete-apps/http_response
 
 ### dashboard screenshots
-![1](../images/http_response-node1.png "node")
-![2](../images/http_response-node2.png "node2")
-![3](../images/http_response-node2.png "node3")
+![1](../images/1._Synthetics_With_Telegraf_-_HTTP_Response_Node.png "node")
+![2](../images/1._Synthetics_With_Telegraf_-_HTTP_Response_Overview.png "node2")
+![3](../images/2._Synthetics_With_Telegraf_-_HTTP_Response_History.png "node3")
 
 ## monitors
 see: https://github.com/rjury-sumo/sumo-telegraf-examples/tree/main/monitors
