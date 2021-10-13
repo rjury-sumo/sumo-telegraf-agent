@@ -18,7 +18,7 @@ See: [env_vars.md](env_vars.md)
 
 ## run
 ```
-docker run -it -e SUMO_URL="$SUMO_URL"  -e env=prod -e urls='http://sumologic.com,https://support.sumologic.com' -e location=living_room rickjury/sumo-telegraf-agent telegraf  --config http_response.conf
+docker run -it -e SUMO_URL="$SUMO_URL"  -e service=mywifi -e env=prod -e location=study rickjury/sumo-telegraf-agent telegraf --config internet_speed.conf
 ```
 
 ## example searches
