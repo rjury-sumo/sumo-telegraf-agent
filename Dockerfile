@@ -13,7 +13,7 @@ RUN set -ex && \
         gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys "$key" ; \
     done
 
-ENV TELEGRAF_VERSION 1.19.3
+ENV TELEGRAF_VERSION 1.20.2
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" && \
     case "${dpkgArch##*-}" in \
       amd64) ARCH='amd64';; \
@@ -51,6 +51,7 @@ RUN telegraf --config ping.conf --test
 ENV urls=http://localhost
 RUN telegraf --config http_response.conf --test 
 RUN telegraf --config statsd.conf --test 
+#RUN telegraf --config internet_speed.conf --test 
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["telegraf"]

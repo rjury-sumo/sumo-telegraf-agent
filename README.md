@@ -14,6 +14,7 @@ For implementation options see the docs pages below. Some pages have links to da
 - [ping](docs/ping.md) - synthetic ping check
 - [http_response](docs/http_response.md) - synthetic http check
 - [statsd](docs/statsd.md) - recieve and forward statsd or dogstatsd metrics to Sumo Logic.
+- [internet_speed](docs/internet_speed.md) - speed test plugin
 
 By default the container runs using the conf files in the ./conf folder. The files:
 - Use env vars to make launch configurable through docker orchestration environment
